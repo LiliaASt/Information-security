@@ -43,3 +43,31 @@ def write_key_to_file(data: dict, file_name:str)->None:
         print(f"Ключ успешно записан в файл '{file_name}'.")
     except Exception as e:
         print(f"Произошла ошибка при записи ключа в файл '{file_name}': {e}")
+
+def calculate_frequency(file_name: str) -> None:
+    frequency = {}
+    data = read_text_from_file(file_name).lower().replace('\n', '')
+
+    frequency = collections.Counter(data)
+    total = len(data)
+    normalized_frequency = {char: count/total for char, count in frequency.items()}
+    sorted_frequency = dict(sorted(normalized_frequency .items(), key=lambda x: x[1], reverse=True))
+    return sorted_frequency
+
+def generate_decryption_key(encrypted_frequency: str, rus_frequency: str) -> dict:
+    decryption_mapping = dict(zip(encrypted_frequency, rus_frequency))
+    return decryption_mapping
+
+def decode_text(text:str, key:dict)->str:
+    decoded_text = ''.join(str(key.get(char, char)) for char in text)
+    return decoded_text
+
+
+if __name__ == "__main__":
+    encrypted_text = read_text_from_file(r'C:/Users/lasts/projects/Information-security/lab_1/2 part/code4.txt')
+    encrypted_frequency = calculate_frequency(r'C:/Users/lasts/projects/Information-security/lab_1/2 part/code4.txt')
+    write_key_to_file(encrypted_frequency, r'C:/Users/lasts/projects/Information-security/lab_1/2 part/tex_frequencies.json')
+    rus_frequency = read_key_from_file(r'C:/Users/lasts/projects/Information-security/lab_1/2 part/rus_frequencies.json')
+    key = generate_decryption_key(encrypted_frequency, rus_frequency)
+    decod = decode_text(encrypted_text, read_key_from_file(r'C:/Users/lasts/projects/Information-security/lab_1/2 part/key.json'))
+    write_text_to_file(decod, r'C:/Users/lasts/projects/Information-security/lab_1/2 part/decoded.txt')
