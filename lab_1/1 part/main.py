@@ -43,6 +43,12 @@ def encode_scytale(text:str, key: int)->str:
         encoded_text[index] += char
     return ''.join(encoded_text)
 
+def decode_scytale(text:str, key: int)->str:
+    decoded_text = [''] * 86
+    for i, char in enumerate(text):
+        index = i% 86
+        decoded_text[index] += char
+    return ''.join(decoded_text)
 
 if __name__ == "__main__":
     input_text = read_text_from_file(r"C:/Users/lasts/projects/Information-security/lab_1/1 part/original_text.txt")
@@ -50,3 +56,5 @@ if __name__ == "__main__":
     if input_text is not None and substitution is not None:
         encrypted_text = encode_scytale(input_text, substitution)
         write_text_to_file(encrypted_text, r"C:/Users/lasts/projects/Information-security/lab_1/1 part/encrypted.txt")
+        decoded_text = decode_scytale(encrypted_text, substitution)
+        write_text_to_file(decoded_text, r"C:/Users/lasts/projects/Information-security/lab_1/1 part/decoded.txt")
