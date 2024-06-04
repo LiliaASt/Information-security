@@ -34,3 +34,19 @@ def write_text_to_file(text: str, file_name: str)->None:
             file.write(text)
     except Exception as e:
         print(f"Произошла ошибка при записи в файл '{file_name}': {e}")
+
+
+def encode_scytale(text:str, key: int)->str:
+    encoded_text = [''] * key
+    for i, char in enumerate(text):
+        index = i % key
+        encoded_text[index] += char
+    return ''.join(encoded_text)
+
+
+if __name__ == "__main__":
+    input_text = read_text_from_file(r"C:/Users/lasts/projects/Information-security/lab_1/1 part/original_text.txt")
+    substitution = read_key_from_file(r"C:/Users/lasts/projects/Information-security/lab_1/1 part/key.json")
+    if input_text is not None and substitution is not None:
+        encrypted_text = encode_scytale(input_text, substitution)
+        write_text_to_file(encrypted_text, r"C:/Users/lasts/projects/Information-security/lab_1/1 part/encrypted.txt")
