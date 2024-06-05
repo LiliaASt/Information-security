@@ -1,5 +1,11 @@
 import json
 import collections
+from path import (
+    decryption_key,
+    decryption_input,
+    decryption_output,
+    decryption_rus_frequencies,
+    decryption_tex_frequencies)
 
 
 def read_text_from_file(file_name: str) -> str:
@@ -74,16 +80,10 @@ def decode_text(text: str, key: dict) -> str:
 
 
 if __name__ == "__main__":
-    encrypted_text = read_text_from_file(
-        r'C:/Users/lasts/projects/Information-security/lab_1/2 part/code4.txt')
-    encrypted_frequency = calculate_frequency(
-        r'C:/Users/lasts/projects/Information-security/lab_1/2 part/code4.txt')
-    write_key_to_file(encrypted_frequency,
-                      r'C:/Users/lasts/projects/Information-security/lab_1/2 part/tex_frequencies.json')
-    rus_frequency = read_key_from_file(
-        r'C:/Users/lasts/projects/Information-security/lab_1/2 part/rus_frequencies.json')
+    encrypted_text = read_text_from_file(decryption_input)
+    encrypted_frequency = calculate_frequency(decryption_input)
+    write_key_to_file(encrypted_frequency, decryption_tex_frequencies)
+    rus_frequency = read_key_from_file(decryption_rus_frequencies)
     key = generate_decryption_key(encrypted_frequency, rus_frequency)
-    decod = decode_text(encrypted_text, read_key_from_file(
-        r'C:/Users/lasts/projects/Information-security/lab_1/2 part/key.json'))
-    write_text_to_file(
-        decod, r'C:/Users/lasts/projects/Information-security/lab_1/2 part/decoded.txt')
+    decod = decode_text(encrypted_text, read_key_from_file(decryption_key))
+    write_text_to_file(decryption_output)
