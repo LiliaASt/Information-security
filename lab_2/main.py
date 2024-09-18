@@ -108,6 +108,6 @@ if __name__ == "__main__":
     except FileNotFoundError:
         print("Файл не найден.")
     except PermissionError as e:
-       print(f"Ошибка: Нет прав для записи - {e}")
+        print(f"Ошибка: Нет прав для записи - {e}")
     except Exception as e:
         print(f"Произошла ошибка: {e}")

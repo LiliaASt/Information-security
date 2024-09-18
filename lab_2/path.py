@@ -1,3 +1,3 @@
-gen_sequence = 'C:/Users/lasts/projects/Information-security/lab_2/gen.json'
-result = 'C:/Users/lasts/projects/Information-security/lab_2/result.txt'
+gen_sequence = 'lab_2/gen.json'
+result = 'lab_2/result.txt'
 
