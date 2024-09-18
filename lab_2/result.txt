@@ -1,9 +1,11 @@
 C++ Results:
 {
-    "frequency_test": 0.37675911781158206
+    "frequency_test": 0.37675911781158206,
+    "same_bits_test": 0.520891578444262
 }
 
 Java Results:
 {
-    "frequency_test": 0.37675911781158206
+    "frequency_test": 0.37675911781158206,
+    "same_bits_test": 0.804645310694816
 }

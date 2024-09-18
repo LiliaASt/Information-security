@@ -21,6 +21,27 @@ def frequency_test(number: str) -> float:
         print(f"Произошла ошибка при чтении '{number}': {e}")
         return None
 
+def same_bits_test (number: str) -> float:
+    try:
+        long = len(number)
+        sum = 0
+        for x in number:
+            sum+=int(x)
+        e = sum/long
+
+        if fabs(e - 0.5) >= (2/sqrt(long)):
+            return 0
+        V_n = 0
+        for i in range(0, long - 1):
+            if number[i] != number[i+1]:
+                V_n += 1
+        value = erfc(fabs(V_n - 2*long*e*(1-e))/(2*sqrt(2*long)*e*(1-e)))
+        return value
+
+    except Exception as e:
+        print(f"Произошла ошибка при чтении '{number}': {e}")
+        return None
+
 if __name__ == "__main__":
     try:
         with open(gen_sequence, 'r', encoding="utf-8") as file:
@@ -30,11 +51,13 @@ if __name__ == "__main__":
 
         cpp_results = {
             "frequency_test": frequency_test(cpp_sequence),
+            "same_bits_test": same_bits_test(cpp_sequence),
         }
         print (cpp_results)
 
         java_results = {
             "frequency_test": frequency_test(java_sequence),
+            "same_bits_test": same_bits_test(java_sequence),
         }
         print (java_results)
 
