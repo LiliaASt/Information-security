@@ -1,6 +1,7 @@
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.serialization import load_pem_public_key, load_pem_private_key
 
+
 class File:
     def serialize_asymmetric_keys(private_path: str, private_key, public_path: str, public_key) -> None:
         with open(public_path, 'wb') as pub_file:

@@ -5,6 +5,7 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import padding
 from file import File
 
+
 class Symmetric:
     @staticmethod
     def generate_symmetric_key(length: int) -> bytes:
@@ -20,9 +21,11 @@ class Symmetric:
         iv = os.urandom(8)
         padder = padding.PKCS7(TripleDES.block_size).padder()
         padded_text = padder.update(text)+padder.finalize()
-        cipher = Cipher(TripleDES(key), modes.CBC(iv), backend=default_backend())
+        cipher = Cipher(TripleDES(key), modes.CBC(iv),
+                        backend=default_backend())
         encryptor = cipher.encryptor()
-        encryptor_text = iv + encryptor.update(padded_text) + encryptor.finalize()
+        encryptor_text = iv + \
+            encryptor.update(padded_text) + encryptor.finalize()
         File.write_bytes(encrypted_text, encryptor_text)
         return encryptor_text
 
@@ -32,10 +35,13 @@ class Symmetric:
         encrypted_data = File.read_bytes(encrypted_text_path)
         iv = encrypted_data[:8]
         encrypted_text = encrypted_data[8:]
-        cipher = Cipher(TripleDES(key), modes.CBC(iv), backend=default_backend())
+        cipher = Cipher(TripleDES(key), modes.CBC(iv),
+                        backend=default_backend())
         decryptor = cipher.decryptor()
-        decrypted_padded_text = decryptor.update(encrypted_text) + decryptor.finalize()
+        decrypted_padded_text = decryptor.update(
+            encrypted_text) + decryptor.finalize()
         unpadder = padding.PKCS7(TripleDES.block_size).unpadder()
-        unpadded_text = unpadder.update(decrypted_padded_text) + unpadder.finalize()
+        unpadded_text = unpadder.update(
+            decrypted_padded_text) + unpadder.finalize()
         File.write_bytes(decrypted_text, unpadded_text)
         return unpadded_text

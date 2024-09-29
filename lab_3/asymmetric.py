@@ -1,8 +1,8 @@
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives import hashes
-
 from file import File
+
 
 class Asymmetric:
     @staticmethod
@@ -21,7 +21,7 @@ class Asymmetric:
 
         encrypted_key = public_key.encrypt(
             symmetric_key,
-            padding.OAEP(mgf= padding.MGF1(algorithm=hashes.SHA256()),
+            padding.OAEP(mgf=padding.MGF1(algorithm=hashes.SHA256()),
                          algorithm=hashes.SHA256(),
                          label=None))
         File.write_bytes(encrypted_path, encrypted_key)
